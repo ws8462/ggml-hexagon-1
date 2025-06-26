@@ -3310,12 +3310,15 @@ int qnn_instance::load_system() {
     }
 
     QNN_SYSTEM_INTERFACE_VER_TYPE qnn_system_interface;
+    GGMLHEXAGON_LOG_WARN("Major [%d], Minor [%d]", QNN_SYSTEM_API_VERSION_MAJOR, QNN_SYSTEM_API_VERSION_MINOR);
     bool found_valid_system_interface = false;
     for (size_t idx = 0; idx < num_providers; idx++) {
+        GGMLHEXAGON_LOG_WARN("1_system major [%d], minor [%d]", provider_list[idx]->systemApiVersion.major, provider_list[idx]->systemApiVersion.minor);
         if (QNN_SYSTEM_API_VERSION_MAJOR ==
             provider_list[idx]->systemApiVersion.major &&
             QNN_SYSTEM_API_VERSION_MINOR <=
             provider_list[idx]->systemApiVersion.minor) {
+            GGMLHEXAGON_LOG_WARN("system major [%d], minor [%d]", provider_list[idx]->systemApiVersion.major, provider_list[idx]->systemApiVersion.minor);
             found_valid_system_interface = true;
             qnn_system_interface = provider_list[idx]->QNN_SYSTEM_INTERFACE_VER_NAME;
             break;
